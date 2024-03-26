@@ -65,7 +65,9 @@ var points = generateRandomPoints(numPoints, range);
 var convexHull = jarvisMarch(points);
 var h=convexHull.length
 const endTime=process.hrtime(startTime)
+const mem=process.memoryUsage().heapUsed/1024;
 console.log(`Time taken: ${endTime[0] * 1000 + endTime[1] / 1000000} milliseconds`);
+console.log(`The script uses approximately ${Math.round(mem * 100) / 100} KB`);
 console.log(numPoints)
 console.log(h)
 console.log(points)
