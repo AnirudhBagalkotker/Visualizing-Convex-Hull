@@ -1,5 +1,5 @@
 export function flipped(points) {
-	return points.map(point => [-point[0], point[1]]);
+	return points.map(point => [-point[0], -point[1]]);
 }
 
 export function quickSelect(ls, index, lo = 0, hi = null, depth = 0) {
