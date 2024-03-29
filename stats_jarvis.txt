@@ -7,3 +7,43 @@ Time taken: 0.2045 milliseconds
 The script uses approximately 5568.5 KB
 7
 6
+
+Time taken: 1.4411 milliseconds
+The script uses approximately 5499.62 KB
+35
+7
+
+Time taken: 0.327 milliseconds
+The script uses approximately 5503.02 KB
+48
+10
+
+Time taken: 1.0735 milliseconds
+The script uses approximately 5513.49 KB
+97
+9
+
+Time taken: 0.368 milliseconds
+The script uses approximately 5505.7 KB
+60
+11
+
+Time taken: 0.3007 milliseconds
+The script uses approximately 5503.3 KB
+48
+7
+
+Time taken: 0.4457 milliseconds
+The script uses approximately 5506.7 KB
+69
+7
+
+Time taken: 0.299 milliseconds
+The script uses approximately 5501.53 KB
+43
+9
+
+Time taken: 0.3488 milliseconds
+The script uses approximately 5244.77 KB
+16
+6
