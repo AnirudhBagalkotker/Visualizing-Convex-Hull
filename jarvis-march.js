@@ -71,6 +71,31 @@ export function jarvisMarch(points) {
     return hull;
 }
 
+/**
+ * Performs the Jarvis March algorithm to find the convex hull of a set of points.
+ *
+ * @param {Array} points - The array of points to compute the convex hull for.
+ * @return {Array} The array representing the points on the convex hull.
+ */
+export function* jarvisMarchIterator(points) {
+    if (points.length < 3) {
+        yield { hull: points, currentVertex: null, nextVertex: null, finished: true };
+        return;
+    }
+    let hull = [], startPoint = leftmostPoint(points), startVertex = startPoint, currentVertex = startVertex;
+    while (true) {
+        hull.push(currentVertex);
+        let nextVertex = findNextVertex(points, currentVertex);
+        yield { hull: hull.slice(), currentVertex: currentVertex, nextVertex: nextVertex, finished: false };
+        if (nextVertex[0] === startVertex[0] && nextVertex[1] === startVertex[1]) {
+            yield { hull: hull.slice(), currentVertex: null, nextVertex: null, finished: true };
+            return hull;
+        } else {
+            currentVertex = nextVertex;
+        }
+    }
+}
+
 // Testing Jarvis-March algorithm
 
 // let points = [[0, 0], [5, 8], [13, 56], [27, 12], [42, 35], [56, 19], [68, 43], [75, 10], [89, 25], [97, 68], [110, 32], [125, 45], [135, 10], [145, 55], [150, 0], [160, 25], [170, 5], [180, 40], [190, 70], [200, 10]];

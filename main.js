@@ -1,5 +1,5 @@
-import { jarvisMarch } from './jarvis-march.js';
-import { KPS } from './kirkpatrick-seidel.js';
+import { jarvisMarch, jarvisMarchIterator } from './jarvis-march.js';
+import { KPS, KPSSimulator } from './kirkpatrick-seidel.js';
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -117,9 +117,50 @@ function computeConvexHullKPS() {
 	redraw();
 }
 
+let iterator = null;
+
+function simulateJarvisMarch() {
+	if (points.length < 3) {
+		alert("At least 3 points are required to compute convex hull.");
+		return;
+	}
+	if (!iterator) iterator = jarvisMarchIterator(points);
+
+	let { value, done } = iterator.next();
+	if (done) {
+		iterator = null;
+	} else {
+		convexHull = value.hull;
+		redraw();
+	}
+}
+
+let stepIndex = -1, steps = null;
+
+function simulateKPS() {
+	if (points.length < 3) {
+		alert("At least 3 points are required to compute convex hull.");
+		return;
+	}
+	if (stepIndex === -1) {
+		steps = KPSSimulator(points);
+		stepIndex = 0;
+		console.log(steps);
+	};
+	if (stepIndex >= 0 && stepIndex < steps.length) {
+		convexHull = steps[stepIndex].points;
+		if (!(steps[stepIndex].type === "Bridged Points" && steps[stepIndex].points === null)) redraw();
+		stepIndex++;
+	}
+	if (stepIndex === 3) computeConvexHullKPS();
+}
+
+document.getElementById('simulateJarvisMarch').addEventListener('click', simulateJarvisMarch);
+document.getElementById('simulateKPS').addEventListener('click', simulateKPS);
+
+// document.getElementById('computeConvexHull').addEventListener('click', computeConvexHull);
+// document.getElementById('computeConvexHullKPS').addEventListener('click', computeConvexHullKPS);
+
 document.addEventListener('DOMContentLoaded', function () {
 	redraw();
 })
-
-document.getElementById('computeConvexHull').addEventListener('click', computeConvexHull);
-document.getElementById('computeConvexHullKPS').addEventListener('click', computeConvexHullKPS);

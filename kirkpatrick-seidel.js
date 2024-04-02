@@ -1,9 +1,25 @@
+/**
+ * Returns a new array of points with the x and y coordinates flipped.
+ *
+ * @param {Array<Array<number>>} points - The array of points to be flipped.
+ * @return {Array<Array<number>>} - The new array of points with flipped coordinates.
+ */
 export function flipped(points) {
 	return points.map(point => [-point[0], -point[1]]);
 }
 
 export function quickSelect(ls, index, lo = 0, hi = null, depth = 0) {
 	if (hi === null) {
+		/**
+		 * Selects the element at the specified index in a given list using the quickselect algorithm.
+		 *
+		 * @param {Array} ls - The list of elements.
+		 * @param {number} index - The index of the element to select.
+		 * @param {number} [lo=0] - The starting index of the sublist to consider.
+		 * @param {number|null} [hi=null] - The ending index of the sublist to consider.
+		 * @param {number} [depth=0] - The depth of recursion.
+		 * @return {*} The element at the specified index.
+		 */
 		hi = ls.length - 1;
 	}
 	if (lo === hi) {
@@ -28,6 +44,13 @@ export function quickSelect(ls, index, lo = 0, hi = null, depth = 0) {
 	}
 }
 
+/**
+ * Bridges points based on given criteria.
+ *
+ * @param {array} points - The points to bridge.
+ * @param {number} verticalLine - The vertical line to bridge the points on.
+ * @return {array|null} The bridged points or null if no valid bridges are found.
+ */
 export function bridge(points, verticalLine) {
 	if (!points || points.length === 0) {
 		return null; // No points to bridge
@@ -109,6 +132,12 @@ export function bridge(points, verticalLine) {
 	return bridge([...candidates], verticalLine);
 }
 
+/**
+ * Sorts an array of points by their x-coordinate and returns the upper hull of the points.
+ *
+ * @param {Array<Array<number>>} points - The array of points to compute the upper hull for.
+ * @return {Array<Array<number>>} - The upper hull of the points.
+ */
 export function upperHull(points) {
 	points.sort((a, b) => a[0] - b[0]); // Sort points by x-coordinate
 
@@ -127,6 +156,14 @@ export function upperHull(points) {
 	return upper;
 }
 
+/**
+ * Connects points within the lower and upper bounds to create a bridge.
+ *
+ * @param {Array} lower - the lower bound point
+ * @param {Array} upper - the upper bound point
+ * @param {Array} points - the points to be connected
+ * @return {Array} an array of connected points
+ */
 export function connect(lower, upper, points) {
 	if (lower[0] === upper[0]) {
 		return [lower];
@@ -163,6 +200,12 @@ export function connect(lower, upper, points) {
 	return connect(lower, left, pointsLeft).concat(connect(right, upper, pointsRight));
 }
 
+/**
+ * Calculate the convex hull of a set of points using the Kirkpatrick–Seidel algorithm.
+ *
+ * @param {Array} points - The array of points for which to calculate the convex hull.
+ * @return {Array} The array of points representing the convex hull.
+ */
 export function KPS(points) {
 	const upper = upperHull(points.slice());
 	const lower = flipped(upperHull(flipped(points.slice())));
@@ -177,6 +220,40 @@ export function KPS(points) {
 
 	return upper.concat(lower);
 }
+
+/**
+ * Simulates each step of the Kirkpatrick-Seidel algorithm.
+ * 
+ * @param {Array} points - The array of points for which to compute the convex hull.
+ * @return {Array} An array containing intermediate steps of the algorithm.
+ */
+export function KPSSimulator(points) {
+	const steps = [];
+
+	// Compute upper hull
+	const upper = upperHull(points.slice());
+	steps.push({ type: 'Upper Hull', points: upper.slice() });
+
+	// Compute lower hull
+	const lower = flipped(upperHull(flipped(points.slice())));
+	steps.push({ type: 'Lower Hull', points: lower.slice() });
+
+	// Bridge upper and lower hulls
+	const bridgedPoints = bridge([...upper, ...lower], 0);
+	steps.push({ type: 'Bridged Points', points: bridgedPoints });
+
+	if (!bridgedPoints) {
+		// Return empty steps if bridgedPoints are null
+		return steps;
+	}
+
+	// Connect bridged points
+	const connectedPoints = connect(bridgedPoints[0], bridgedPoints[1], [...upper, ...lower]);
+	steps.push({ type: 'Connected Points', points: connectedPoints });
+
+	return steps;
+}
+
 
 // const points = [[0, 0], [5, 8], [13, 56], [27, 12], [42, 35], [56, 19], [68, 43], [75, 10], [89, 25], [97, 68], [110, 32], [125, 45], [135, 10], [145, 55], [150, 0], [160, 25], [170, 5], [180, 40], [190, 70], [200, 10]];
 // const convexHullPoints = KPS(points);
