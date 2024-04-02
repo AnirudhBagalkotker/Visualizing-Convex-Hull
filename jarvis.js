@@ -11,6 +11,16 @@ function crossProduct(origin, p1, p2) {
     return (p1[0] - origin[0]) * (p2[1] - origin[1]) - (p1[1] - origin[1]) * (p2[0] - origin[0]);
 }
 
+function checkCollinearity(points){
+    for (let i = 1; i < points.length-1; i++) {
+        if(crossProduct(points[0],points[i],points[i+1])){
+            return false;
+        }
+    }
+    return true;
+}
+
+
 function distance(p1, p2) {
     return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
 }
@@ -31,8 +41,8 @@ function findnextVertex(points, currentVertex) {
 }
 
 function jarvisMarch(points) {
-    if (points.length < 3) {
-        return points;
+    if (points.length < 3 || checkCollinearity(points)) {
+        return [];
     }
     var hull = [];
     var startPoint = leftmostPoint(points);
