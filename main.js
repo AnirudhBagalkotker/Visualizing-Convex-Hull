@@ -114,6 +114,7 @@ function computeConvexHullKPS() {
 	}
 
 	convexHull = KPS(points);
+	console.log(convexHull);
 	redraw();
 }
 
@@ -149,10 +150,9 @@ function simulateKPS() {
 	};
 	if (stepIndex >= 0 && stepIndex < steps.length) {
 		convexHull = steps[stepIndex].points;
-		if (!(steps[stepIndex].type === "Bridged Points" && steps[stepIndex].points === null)) redraw();
+		redraw();
 		stepIndex++;
 	}
-	if (stepIndex === 3) computeConvexHullKPS();
 }
 
 document.getElementById('simulateJarvisMarch').addEventListener('click', simulateJarvisMarch);
