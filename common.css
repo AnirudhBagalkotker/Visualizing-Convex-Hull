@@ -97,6 +97,11 @@ nav ul li a.active {
 	gap: 1rem;
 }
 
+.space-between {
+	align-items: center;
+	justify-content: space-between;
+}
+
 .canvas {
 	border: 1px solid #222831;
 	cursor: crosshair;
