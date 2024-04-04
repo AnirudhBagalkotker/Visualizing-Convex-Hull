@@ -1,0 +1,107 @@
+/* Styles for the navbar */
+body {
+	background-color: #fdffff;
+	color: #222831;
+}
+
+nav {
+	background-color: #222831;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+nav ul li {
+	float: left;
+}
+
+nav ul li a {
+	display: block;
+	color: #fdffff;
+	text-align: center;
+	padding: 12px 16px;
+	text-decoration: none;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+	background-color: #fdffff;
+	color: #222831;
+}
+
+.center {
+	text-align: center !important;
+}
+
+.b {
+	font-weight: bold;
+}
+
+.margin {
+	margin: 8vh 8px;
+}
+
+.btn-box {
+	display: flex;
+	flex-direction: row;
+	gap: 3rem;
+	justify-content: center;
+	align-items: center;
+	margin: 2vh 0;
+}
+
+.btn {
+	box-shadow: 4px 3px 32px 1px rgba(0, 0, 0, 0.24);
+	padding: 0.3rem 1.5rem;
+	font-size: 1.2vw;
+	border-radius: 8px;
+	border: none;
+	font-weight: bold;
+	background-color: #0c93e4;
+	color: #fdffff;
+	cursor: pointer;
+	font-family: "Montserrat";
+	transition: all 0.35s ease;
+	text-decoration: none;
+	line-height: 1.67;
+}
+
+.btn:hover {
+	transform: scale(0.95);
+}
+
+.btn:active {
+	transform: scale(0.9);
+}
+
+.flex-column {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.canvas {
+	border: 1px solid #222831;
+	cursor: crosshair;
+}
+
+.w-75 {
+	width: 75%;
+}

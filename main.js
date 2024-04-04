@@ -1,6 +1,3 @@
-import { jarvisMarch, jarvisMarchIterator } from './jarvis-march.js';
-import { KPS, KPSSimulator } from './kirkpatrick-seidel.js';
-
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -11,15 +8,15 @@ let convexHull = []; // Array to store convex hull points
 function drawPoint(x, y, color) {
 	ctx.fillStyle = color;
 	ctx.beginPath();
-	ctx.arc(x, y, 3, 0, Math.PI * 2);
+	ctx.arc(x + canvas.width / 2, canvas.height / 2 - y, 3, 0, Math.PI * 2);
 	ctx.fill();
 }
 
 // Function to draw line between two points
 function drawLine(x1, y1, x2, y2) {
 	ctx.beginPath();
-	ctx.moveTo(x1, y1);
-	ctx.lineTo(x2, y2);
+	ctx.moveTo(x1 + canvas.width / 2, canvas.height / 2 - y1);
+	ctx.lineTo(x2 + canvas.width / 2, canvas.height / 2 - y2);
 	ctx.stroke();
 }
 
@@ -30,10 +27,10 @@ function redraw() {
 	// Draw axes
 	ctx.strokeStyle = 'black';
 	ctx.beginPath();
-	ctx.moveTo(canvas.width / 2, 0);
-	ctx.lineTo(canvas.width / 2, canvas.height);
 	ctx.moveTo(0, canvas.height / 2);
 	ctx.lineTo(canvas.width, canvas.height / 2);
+	ctx.moveTo(canvas.width / 2, 0);
+	ctx.lineTo(canvas.width / 2, canvas.height);
 	ctx.stroke();
 
 	// Draw convex hull
@@ -75,8 +72,29 @@ function displayCoordinatesTooltip(event) {
 	tooltip.style.top = `${event.pageY - 25}px`;
 }
 
-// Event listener to display coordinates tooltip on mousemove
-canvas.addEventListener('mousemove', displayCoordinatesTooltip);
+
+// Function to clear the canvas
+function clearCanvas() {
+	points = [];
+	convexHull = [];
+	redraw();
+}
+
+// Function to generate random points
+function generateRandomPoints() {
+	const radiusX = 290;
+	const radiusY = 900;
+	for (let i = 0; i < 50; i++) {
+		let x, y;
+		do {
+			x = Math.random() * (2 * radiusY) - radiusY;
+			y = Math.random() * (2 * radiusX) - radiusX;
+		} while (x ** 2 + y ** 2 > ((radiusX + radiusY) / 2) ** 2);
+		points.push([x, y]);
+	}
+	console.log(points);
+	redraw();
+}
 
 // Event listener to remove tooltip when mouse leaves canvas
 canvas.addEventListener('mouseleave', function () {
@@ -89,78 +107,17 @@ canvas.addEventListener('mouseleave', function () {
 // Function to add point on canvas click
 canvas.addEventListener('click', function (event) {
 	const rect = canvas.getBoundingClientRect();
-	const x = event.clientX - rect.left;
-	const y = event.clientY - rect.top;
+	const x = event.clientX - rect.left - canvas.width / 2;
+	const y = -(event.clientY - rect.top - canvas.height / 2);
 	points.push([x, y]);
 	redraw();
 });
 
-// Function to compute convex hull
-function computeConvexHull() {
-	if (points.length < 3) {
-		alert("At least 3 points are required to compute convex hull.");
-		return;
-	}
+// Event listener to display coordinates tooltip on mousemove
+canvas.addEventListener('mousemove', displayCoordinatesTooltip);
+// Event listener to clear the canvas
+document.getElementById('clear').addEventListener('click', clearCanvas);
+// Event listener to generate random points
+document.getElementById('generate').addEventListener('click', generateRandomPoints);
 
-	convexHull = jarvisMarch(points);
-	redraw();
-}
-
-// Function to compute convex hull
-function computeConvexHullKPS() {
-	if (points.length < 3) {
-		alert("At least 3 points are required to compute convex hull.");
-		return;
-	}
-
-	convexHull = KPS(points);
-	console.log(convexHull);
-	redraw();
-}
-
-let iterator = null;
-
-function simulateJarvisMarch() {
-	if (points.length < 3) {
-		alert("At least 3 points are required to compute convex hull.");
-		return;
-	}
-	if (!iterator) iterator = jarvisMarchIterator(points);
-
-	let { value, done } = iterator.next();
-	if (done) {
-		iterator = null;
-	} else {
-		convexHull = value.hull;
-		redraw();
-	}
-}
-
-let stepIndex = -1, steps = null;
-
-function simulateKPS() {
-	if (points.length < 3) {
-		alert("At least 3 points are required to compute convex hull.");
-		return;
-	}
-	if (stepIndex === -1) {
-		steps = KPSSimulator(points);
-		stepIndex = 0;
-		console.log(steps);
-	};
-	if (stepIndex >= 0 && stepIndex < steps.length) {
-		convexHull = steps[stepIndex].points;
-		redraw();
-		stepIndex++;
-	}
-}
-
-document.getElementById('simulateJarvisMarch').addEventListener('click', simulateJarvisMarch);
-document.getElementById('simulateKPS').addEventListener('click', simulateKPS);
-
-// document.getElementById('computeConvexHull').addEventListener('click', computeConvexHull);
-// document.getElementById('computeConvexHullKPS').addEventListener('click', computeConvexHullKPS);
-
-document.addEventListener('DOMContentLoaded', function () {
-	redraw();
-})
+document.addEventListener('DOMContentLoaded', function () { redraw(); });
