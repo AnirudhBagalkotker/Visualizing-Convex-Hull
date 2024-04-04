@@ -110,3 +110,12 @@ nav ul li a.active {
 .w-75 {
 	width: 75%;
 }
+
+.doc {
+	font-size: 16px;
+}
+
+video {
+	width: 60%;
+	margin-top: 2vh;
+}

@@ -16,7 +16,7 @@
 				<a href="home.html">Home</a>
 			</li>
 			<li class="nav-item">
-				<a href="jm.html">JM</a>
+				<a href=kps.html">JM</a>
 			</li>
 			<li class="nav-item">
 				<a href="kps.html">KPS</a>
@@ -36,9 +36,36 @@
 		</ul>
 	</nav>
 
-	<div class="stackedit__html">
-		<h1 id="jarvis-march">Jarvis March</h1>
-		<h2 id="overview">Overview</h2>
+	<div class="flex-column">
+		<h1 id="jarvis-march">Jarvis March Documentation Tutorial</h1>
+		<video autoplay muted loop>
+			<source src="Clips/kps1.webm" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+		<h3 class="doc w-75 center">Select the Points for which you want to find the convex hull or just press the
+			random to generate random points.</h3>
+
+		<video autoplay muted loop>
+			<source src="Clips/kps2.webm" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+		<h3 class="doc w-75 center">Click on Simulate if you wish to simulate the Convex Hull creation. If you
+			Simulation is selected then the Kirkpatrick-Seidel algorithm starts to simulates and displays the Lower Hull
+			of the points. If you just want the result, press compute.</h3>
+
+		<video autoplay muted loop>
+			<source src="Clips/kps3.webm" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+		<h3 class="doc w-75 center">The Simulation now computes the Upper Hull. The Bridge is also computed in this step
+			which can be seen in the canvas by comparing the previous Lower Hull with the current Upper Hull.</h3>
+
+		<video autoplay muted loop>
+			<source src="Clips/kps4.webm" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+		<h3 class="doc w-75 center">The Convex Hull is entirely computed by joining the Upper and Lower Hull and is now
+			displayed on to the canvas.</h3>
 	</div>
 </body>
 <script src="navbar.js"></script>
