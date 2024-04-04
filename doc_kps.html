@@ -1,53 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>Jarvis March</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+  <style>
+    /* Styles for the navbar */
+    nav {
+      background-color: #333;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    nav ul li {
+      float: left;
+    }
+
+    nav ul li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    nav ul li a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+  </style>
 </head>
-<body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="analysis_jm.html">Analysis JM</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="analysis_kps.html">Analysis KPS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="jm.html">JM</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="kps.html">KPS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="doc_jm.html">Doc JM</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="doc_kps.html">Doc KPS</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-<div class="container mt-5">
-  <h1>Welcome to the Home Page</h1>
-  <p>This is the home page of the website.</p>
+<body class="stackedit">
+  <nav>
+    <ul>
+      <li class="nav-item">
+        <a href="home.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="jm.html">JM</a>
+      </li>
+      <li class="nav-item">
+        <a href="kps.html">KPS</a>
+      </li>
+      <li class="nav-item">
+        <a href="doc_jm.html">Doc JM</a>
+      </li>
+      <li class="nav-item">
+        <a href="doc_kps.html">Doc KPS</a>
+      </li>
+      <li class="nav-item">
+        <a href="analysis_jm.html">Analysis JM</a>
+      </li>
+      <li class="nav-item">
+        <a href="analysis_kps.html">Analysis KPS</a>
+      </li>
+    </ul>
+  </nav>
+</body>
+
+  <script>
+    // JavaScript to handle navbar toggler click event
+    document.querySelector('.navbar-toggler').addEventListener('click', function() {
+      var navCollapse = document.querySelector('.collapse');
+      if (navCollapse.style.display === 'block') {
+        navCollapse.style.display = 'none';
+      } else {
+        navCollapse.style.display = 'block';
+      }
+    });
+  </script>
+
+  <div class="stackedit__html"><h1 id="jarvis-march">Jarvis March</h1>
+<h2 id="overview">Overview</h2>
 </div>
-
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
