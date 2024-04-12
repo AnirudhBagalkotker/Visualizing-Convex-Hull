@@ -240,6 +240,44 @@ export function KPSSimulator(points) {
 	const lower = flipped(upperHull(flipped(points.slice())));
 	steps.push({ type: 'Lower Hull', points: lower.slice() });
 
+	// Find the common points in upper and lower hulls
+	const common = [];
+	for (let i = 0; i < upper.length; i++) {
+		for (let j = 0; j < lower.length; j++) {
+			if (upper[i][0] === lower[j][0] && upper[i][1] === lower[j][1]) {
+				common.push(upper[i]);
+				lower.splice(j, 1);
+				break;
+			}
+		}
+	}
+	steps.push({ type: 'Common Points', points: common.slice() });
+
+	// Find line perpendicular to the common line which cuts the common line at the median of the x-coordinates of the common points
+	const medianX = (common[0][0] + common[common.length - 1][0]) / 2;
+	const commonSlope = (common[common.length - 1][1] - common[0][1]) / (common[common.length - 1][0] - common[0][0]);
+	const perpendicularSlope = -1 / commonSlope;
+	const medianY = common[0][1] + (medianX - common[0][0]) * commonSlope;
+
+	const maxX = 600;
+	const minX = -600;
+	const maxY = 290;
+	const minY = -290;
+
+	// Choose a point with minimum y-coordinate
+	const point1X = (minY - (medianY - perpendicularSlope * medianX)) / perpendicularSlope;
+	const point1Y = minY;
+
+	// Choose a point with maximum y-coordinate
+	const point2X = (maxY - (medianY - perpendicularSlope * medianX)) / perpendicularSlope;
+	const point2Y = maxY;
+
+	const adjustedPoint1X = Math.max(Math.min(point1X, maxX), minX);
+	const adjustedPoint2X = Math.max(Math.min(point2X, maxX), minX);
+
+	const medianLine = [[adjustedPoint1X, point1Y], [medianX, medianY], [adjustedPoint2X, point2Y]];
+	steps.push({ type: 'Median Line', points: medianLine.slice() });
+
 	// Compute convex hull
 	if (upper[upper.length - 1][0] === lower[0][0] && upper[upper.length - 1][1] === lower[0][1]) {
 		upper.pop();

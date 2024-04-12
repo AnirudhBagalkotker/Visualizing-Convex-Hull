@@ -399,3 +399,31 @@ function LowerHull(points, edges) {
 
 	connect_L(pmin, pmax, uhPointsSorted, edges);
 }
+
+function edgesToPoints(edges) {
+	console.log(edges);
+	let points = [];
+
+	for (let edge of edges) {
+		for (let point of edge) {
+			let exists = points.some(p => p[0] === point[0] && p[1] === point[1]);
+			if (!exists) points.push(point);
+		}
+	}
+
+	return points;
+}
+
+export function KPS(points) {
+	let edges = [];
+	UpperHull(points, edges);
+	LowerHull(points, edges);
+	return edgesToPoints(edges);
+}
+
+export function KPSSimulator(points) {
+	let edges = [];
+	UpperHull(points, edges);
+	LowerHull(points, edges);
+	return edgesToPoints(edges);
+}
